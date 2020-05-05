@@ -59,3 +59,4 @@ make check-tests
 * delete empty page from table heap when delete tuple
 * implement delete table, with empty page bitmap in disk manager (how to persistent?)
 * index: unique/dup key, variable key
+* edit
