@@ -12,8 +12,11 @@
 
 #pragma once
 
+#include <algorithm>
 #include <list>
 #include <mutex>  // NOLINT
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include "buffer/replacer.h"
@@ -47,6 +50,15 @@ class ClockReplacer : public Replacer {
 
  private:
   // TODO(student): implement me!
+  int capacity;
+  int cur_size;
+  int clock_hand;
+  std::vector<frame_id_t> buckets;
+  std::vector<int> ref_bits;  // it represent whether this frame changed from pinned to unpinned recently
+  std::unordered_map<frame_id_t, int> map; // key=frame_id, value=butck id in clockReplacer
+  std::unordered_set<frame_id_t> recent_pinned; // a set of recent pinned frame_id
+
+  auto find_next_available(int start) -> int;
 };
 
 }  // namespace bustub
