@@ -67,7 +67,8 @@ bool HASH_TABLE_TYPE::GetValue(Transaction *transaction, const KeyType &key, std
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
 bool HASH_TABLE_TYPE::Insert(Transaction *transaction, const KeyType &key, const ValueType &value) {
-  // only returns false if it tries to insert an existing key-value pair.w
+  // only returns false if it tries to insert an existing key-value pair.
+
   uint64_t hash_res = hash_fn_.GetHash(key);
   page_id_t block_page_id = header_page_->GetBlockPageId(hash_res % num_blocks_);
   auto block_page = reinterpret_cast<HashTableBlockPage<KeyType, ValueType, KeyComparator> *>(buffer_pool_manager_->FetchPage(block_page_id)->GetData());
@@ -79,7 +80,6 @@ bool HASH_TABLE_TYPE::Insert(Transaction *transaction, const KeyType &key, const
       return false;
     }
     if (block_page->Insert(bucket_ind, key, value)) { return true; }
-
     bucket_ind++;
   }
 

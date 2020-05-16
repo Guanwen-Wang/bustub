@@ -29,9 +29,8 @@ template <typename KeyType, typename ValueType, typename KeyComparator>
 bool HASH_TABLE_BLOCK_TYPE::Insert(slot_offset_t bucket_ind, const KeyType &key, const ValueType &value) {
   // which number: occupied_[bucket_ind / 8]
   // which bit in this number: bucket_ind % 8
-  if (IsOccupied(bucket_ind)) {
-    return false;
-  }
+  if (IsOccupied(bucket_ind)) { return false; }
+
   array_[bucket_ind] = std::make_pair(key, value);
   occupied_[bucket_ind / 8] |= (1 << bucket_ind % 8);
   readable_[bucket_ind / 8] |= (1 << bucket_ind % 8);
